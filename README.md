@@ -1,5 +1,5 @@
 #TabloConnect
-TabloConnect is a rails engine that connects to Tablo DVRs and provides listings of recordings as well as video export.
+[TabloConnect](http://tridnguyen.github.io/tablo_connect/) is a rails engine that connects to Tablo DVRs and provides listings of recordings as well as video export.
 
 ##Requirements
 * This is a rails engine.  So, you'll need to add it an existing or new rails project.
