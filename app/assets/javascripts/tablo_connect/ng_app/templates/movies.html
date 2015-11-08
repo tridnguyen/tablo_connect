@@ -1,0 +1,33 @@
+<h1>Movies</h1>
+<ac-alerts></ac-alerts>
+<div class="table-responsive" ng-switch="!!movies">
+    <table class="table table-striped" ng-switch-when="true">
+        <thead>
+        <tr>
+            <th></th>
+            <th class="text-nowrap">Title</th>
+            <th class="text-nowrap">Description</th>
+            <th class="text-nowrap">Release Year</th>
+            <th class="text-nowrap">Air Date</th>
+            <th>Copy</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="movie in movies track by $index">
+            <td class="thumb"><img ng-src="{{tabloBaseUrl}}/stream/thumb?id={{movie.image_id}}"></td>
+            <td ng-bind="movie.title"></td>
+            <td ng-bind="movie.description"></td>
+            <td ng-bind="movie.release_year"></td>
+            <td class="text-nowrap" ng-bind="movie.air_date|date:'mediumDate'"></td>
+            <td>
+                <p ng-bind="movie.copy_status|titleize"
+                   ng-if="['in_progress', 'complete'].indexOf(movie.copy_status) >= 0"></p>
+                <a ng-click="copyRecording(movie)" class="btn btn-sm btn-warning"
+                   ng-if="['idle', 'complete'].indexOf(movie.copy_status) >= 0">copy</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <p ng-switch-when="false">No recorded movies found.</p>
+</div>
+
