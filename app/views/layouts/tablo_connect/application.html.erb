@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html ng-app="ac.tabloConnectApp">
+<head>
+  <title>TabloConnect</title>
+  <%= stylesheet_link_tag "tablo_connect/application", media: "all" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<%= render 'layouts/tablo_connect/header' %>
+<div class="container-fluid">
+  <%= yield %>
+</div>
+
+<%= javascript_include_tag "tablo_connect/application" %>
+<script>
+  angular.module('ac.tabloConnectApp').constant('tabloBaseUrl', '<%= "http://#{TabloConnect.tablo_ip}:#{TabloConnect.tablo_port}" %>')
+</script>
+</body>
+</html>

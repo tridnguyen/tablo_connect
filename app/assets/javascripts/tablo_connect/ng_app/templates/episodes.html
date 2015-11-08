@@ -1,0 +1,36 @@
+<div class="episodes">
+    <h1 ng-bind="showTitle|urldecode"></h1>
+    <ac-alerts></ac-alerts>
+    <div class="table-responsive" ng-switch="!!episodes">
+        <table class="table table-striped" ng-switch-when="true">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Season</th>
+                <th>Episode</th>
+                <th class="text-nowrap">Orig Air Date</th>
+                <th class="text-nowrap">Date Recorded</th>
+                <th>Copy</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="episode in episodes track by $index">
+                <td ng-bind="episode.title"></td>
+                <td ng-bind="episode.description"></td>
+                <td ng-bind="episode.season"></td>
+                <td ng-bind="episode.episode"></td>
+                <td class="text-nowrap" ng-bind="episode.air_date|date:'mediumDate'"></td>
+                <td class="text-nowrap" ng-bind="episode.rec_date|date:'medium'"></td>
+                <td>
+                    <p ng-bind="episode.copy_status|titleize"
+                       ng-if="['in_progress', 'complete'].indexOf(episode.copy_status) >= 0"></p>
+                    <a ng-click="copyRecording(episode)" class="btn btn-sm btn-warning"
+                       ng-if="['idle', 'complete'].indexOf(episode.copy_status) >= 0">copy</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <p ng-switch-when="false">No recorded shows found.</p>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+<div id="alerts" class="alerts">
+  <p class="alert alert-dismissable fade-enter-leave" ng-repeat="alert in alerts.messages" data-ng-class="'alert-' + alert.type" ng-if="alerts.messages.length">
+    <button type="button" class="close" aria-hidden="true" ng-click="closeAlert($index)"><span aria-hidden="true">&times;</span></button>
+    <span data-ng-bind-html="alert.msg"></span>
+  </p>
+</div>

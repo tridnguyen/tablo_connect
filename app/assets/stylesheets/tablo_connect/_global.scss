@@ -1,0 +1,19 @@
+body {
+  min-width: 320px;
+}
+
+.thumb {
+  text-align: center;
+
+  img {
+    height: auto;
+    max-width: 150px;
+    min-width: 50px;
+  }
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

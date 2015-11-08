@@ -1,0 +1,4 @@
+<div ng-switch="syncing">
+    <a ng-click="syncRecordings()" ng-switch-when="false" class="btn btn-info">sync</a>
+    <p ng-switch-when="true">Sync in progress. This may take some time depending on the number of recordings on your tablo.</p>
+</div>

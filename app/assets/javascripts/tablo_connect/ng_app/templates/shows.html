@@ -1,0 +1,13 @@
+<div class="shows">
+    <h1>Shows</h1>
+    <ac-alerts></ac-alerts>
+    <div ng-switch="!!shows">
+        <div ng-switch-when="true">
+            <a class="show-cell" ng-repeat="show in shows track by $index" ui-sref="episodes({showName: (show.show|urlencode)})">
+                <img ng-src="{{tabloBaseUrl}}/stream/thumb?id={{show.image_id}}" alt="{{show.show}}">
+                <div class="episode-count" ng-bind="show.count"></div>
+            </a>
+        </div>
+        <p ng-switch-when="false">No recorded shows found.</p>
+    </div>
+</div>
