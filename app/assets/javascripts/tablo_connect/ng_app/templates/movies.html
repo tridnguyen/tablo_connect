@@ -19,7 +19,7 @@
             <td ng-bind="movie.description"></td>
             <td ng-bind="movie.release_year"></td>
             <td class="text-nowrap" ng-bind="movie.air_date|date:'mediumDate'"></td>
-            <td>
+            <td class="text-nowrap">
                 <p ng-bind="movie.copy_status|titleize"
                    ng-if="['in_progress', 'complete'].indexOf(movie.copy_status) >= 0"></p>
                 <a ng-click="copyRecording(movie)" class="btn btn-sm btn-warning"

@@ -36,8 +36,10 @@ describe('EpisodesCtrl', function () {
   describe('$scope.copyRecording', function () {
     it('calls tabloService.initCopy', function () {
       spyOn(tabloService, 'initCopy');
+      spyOn(alertsService, 'clearAlerts');
       scope.copyRecording({tablo_id: 1234});
       expect(tabloService.initCopy).toHaveBeenCalledWith({tablo_id: 1234}, 'show');
+      expect(alertsService.clearAlerts).toHaveBeenCalled();
     });
   });
 

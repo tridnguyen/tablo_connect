@@ -8,6 +8,7 @@
         $scope.tabloBaseUrl = tabloBaseUrl;
 
         $scope.copyRecording = function (movie) {
+          alertsService.clearAlerts();
           tabloService.initCopy(movie, 'movie');
         };
 

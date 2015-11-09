@@ -22,7 +22,7 @@
                 <td ng-bind="episode.episode"></td>
                 <td class="text-nowrap" ng-bind="episode.air_date|date:'mediumDate'"></td>
                 <td class="text-nowrap" ng-bind="episode.rec_date|date:'medium'"></td>
-                <td>
+                <td class="text-nowrap">
                     <p ng-bind="episode.copy_status|titleize"
                        ng-if="['in_progress', 'complete'].indexOf(episode.copy_status) >= 0"></p>
                     <a ng-click="copyRecording(episode)" class="btn btn-sm btn-warning"

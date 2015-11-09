@@ -8,6 +8,7 @@
         $scope.alerts = alertsService.getAlerts();
 
         $scope.copyRecording = function (episodes) {
+          alertsService.clearAlerts();
           tabloService.initCopy(episodes, 'show');
         };
 

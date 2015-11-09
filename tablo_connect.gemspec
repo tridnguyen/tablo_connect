@@ -14,24 +14,24 @@ Gem::Specification.new do |s|
   s.description = "Web interface to connect to a tablo device, list and export recordings."
   s.license     = "MIT"
 
-  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
+  s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
 
   s.test_files = Dir['spec/**/*']
 
-  s.add_dependency "rails", "~> 4.2.4"
-  s.add_dependency "nokogiri"
-  s.add_dependency "rest-client"
-  s.add_dependency "sass-rails"
+  s.add_dependency "rails", "~> 4.2"
+  s.add_dependency "nokogiri", "~> 1.5"
+  s.add_dependency "rest-client", "~> 1.8"
+  s.add_dependency "sass-rails", "~> 5.0"
 
-  s.add_development_dependency "bundler"
-  s.add_development_dependency "sqlite3"
-  s.add_development_dependency "rspec"
-  s.add_development_dependency "rspec-rails"
-  s.add_development_dependency "database_cleaner"
-  s.add_development_dependency "factory_girl_rails"
-  s.add_development_dependency "guard"
-  s.add_development_dependency "guard-rspec"
-  s.add_development_dependency "terminal-notifier-guard"
-  s.add_development_dependency "pry"
-  s.add_development_dependency "test-unit"
+  s.add_development_dependency "bundler", "~> 1.3"
+  s.add_development_dependency "sqlite3", "~> 1.3"
+  s.add_development_dependency "rspec", "~> 3.3"
+  s.add_development_dependency "rspec-rails", "~> 3.3"
+  s.add_development_dependency "database_cleaner", "~> 1.5"
+  s.add_development_dependency "factory_girl_rails", "~> 4.5"
+  s.add_development_dependency "guard", "~> 2.13"
+  s.add_development_dependency "guard-rspec", "~> 4.6"
+  s.add_development_dependency "terminal-notifier-guard", "~> 1.6"
+  s.add_development_dependency "pry", "~> 0.10"
+  s.add_development_dependency "test-unit", "~> 3.1"
 end
