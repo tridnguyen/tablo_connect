@@ -9,7 +9,7 @@
 ###Add to your Gemfile:
 
 ```ruby
-gem 'tablo_connect', git: 'https://github.com/tridnguyen/tablo_connect.git', branch: 'master'
+gem 'tablo_connect'
 ```
 
 ###Add an initializer file in your rails project (tablo_connect.rb) with the following:

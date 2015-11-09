@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tablo_connect (0.0.1)
+    tablo_connect (0.0.2)
       nokogiri (~> 1.5)
       rails (~> 4.2)
       rest-client (~> 1.8)
@@ -211,3 +211,6 @@ DEPENDENCIES
   tablo_connect!
   terminal-notifier-guard (~> 1.6)
   test-unit (~> 3.1)
+
+BUNDLED WITH
+   1.10.6
