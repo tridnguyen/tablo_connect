@@ -61,7 +61,7 @@ module TabloConnect
       item.episode = details.try(:[], :recEpisode).try(:[], :jsonFromTribune).try(:[], :program).try(:[], :episodeNum)
       item.season = details.try(:[], :recEpisode).try(:[], :jsonFromTribune).try(:[], :program).try(:[], :seasonNum)
       item.rec_date = details.try(:[], :recEpisode).try(:[], :jsonForClient).try(:[], :airDate)
-      item.air_date = details.try(:[], :recSeries).try(:[], :jsonForClient).try(:[], :originalAirDate)
+      item.air_date = details.try(:[], :recEpisode).try(:[], :jsonForClient).try(:[], :originalAirDate)
       item.image_id = details.try(:[], :recSeries).try(:[], :imageJson).try(:[], :images).try(:[], 0).try(:[], :imageID)
       item.save!
     end
