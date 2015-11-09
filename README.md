@@ -30,7 +30,7 @@ end
 ```bundle exec rake db:migrate```
 
 ###Start the server:
-```rails s```
+```bundle exec rails s```
 
 ###View in your browser:
 
