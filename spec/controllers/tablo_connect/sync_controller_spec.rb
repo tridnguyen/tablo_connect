@@ -141,7 +141,7 @@ module TabloConnect
     end
 
     describe ".update_show" do
-      let(:details) { {:recEpisode => {:jsonFromTribune => {:program => {:episodeNum => 63, :episodeTitle => "The Story of Mother Goose", :longDescription => "Mother Goose helps Red write a new song.", :origAirDate => "2010-07-12", :releaseDate => "2010-09-25", :releaseYear => 2010, :seasonNum => 1, :title => "Super Why!"}},:jsonForClient => {:airDate => "2015-10-18T19:30Z"}}, :recSeries => {:jsonForClient => {:originalAirDate => "2007-09-03"}, :imageJson => {:images => [{:type => "image", :imageID => 177446, :imageType => "series_3x4_small", :imageStyle => "thumbnail"}]}}} }
+      let(:details) { {:recEpisode => {:jsonFromTribune => {:program => {:episodeNum => 63, :episodeTitle => "The Story of Mother Goose", :longDescription => "Mother Goose helps Red write a new song.", :origAirDate => "2010-07-12", :releaseDate => "2010-09-25", :releaseYear => 2010, :seasonNum => 1, :title => "Super Why!"}},:jsonForClient => {:originalAirDate => "2000-10-01", :airDate => "2015-10-18T19:30Z"}}, :recSeries => {:jsonForClient => {:originalAirDate => "2007-09-03"}, :imageJson => {:images => [{:type => "image", :imageID => 177446, :imageType => "series_3x4_small", :imageStyle => "thumbnail"}]}}} }
 
       context "when the item is not found" do
         it "creates the item" do
@@ -195,7 +195,7 @@ module TabloConnect
         it "updates the air_date" do
           controller.send(:update_show, show.tablo_id, details)
           show.reload
-          expect(show.air_date.strftime('%F')).to eq details[:recSeries][:jsonForClient][:originalAirDate]
+          expect(show.air_date.strftime('%F')).to eq details[:recEpisode][:jsonForClient][:originalAirDate]
         end
 
         it "updates the image_id" do
