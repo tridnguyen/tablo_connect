@@ -33,7 +33,10 @@ end
 ```rails s```
 
 ###View in your browser:
-```http://localhost:3000/tablo```
+
+```
+http://localhost:3000/tablo
+```
 
 ##Upcoming Features
 * Automate stripping commercials using comskip and MEncoder
