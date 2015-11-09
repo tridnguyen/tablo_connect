@@ -365,6 +365,12 @@ a {
 
 /* custom styles */
 .demo {
-  margin: 30px 0;
+  margin: 30px;
   text-align: center;
+}
+
+.video {
+  max-width: 1920px;
+  height: auto;
+  width: 100%;
 }
