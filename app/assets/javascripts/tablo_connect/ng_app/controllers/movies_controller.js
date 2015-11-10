@@ -2,10 +2,9 @@
   'use strict';
 
   angular.module('ac.tabloConnectApp')
-      .controller('MoviesCtrl', ['$scope', 'tabloService', 'tabloBaseUrl', 'alertsService', function ($scope, tabloService, tabloBaseUrl, alertsService) {
+      .controller('MoviesCtrl', ['$scope', 'tabloService', 'alertsService', function ($scope, tabloService, alertsService) {
         $scope.movies = tabloService.movieData();
         $scope.alerts = alertsService.getAlerts();
-        $scope.tabloBaseUrl = tabloBaseUrl;
 
         $scope.copyRecording = function (movie) {
           alertsService.clearAlerts();

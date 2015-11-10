@@ -10,10 +10,6 @@
 <div class="container-fluid">
   <%= yield %>
 </div>
-
 <%= javascript_include_tag "tablo_connect/application" %>
-<script>
-  angular.module('ac.tabloConnectApp').constant('tabloBaseUrl', '<%= "http://#{TabloConnect.tablo_ip}:#{TabloConnect.tablo_port}" %>')
-</script>
 </body>
 </html>

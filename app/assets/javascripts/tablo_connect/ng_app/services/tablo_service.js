@@ -41,22 +41,22 @@
           episodeData: function() {
             return episodeData;
           },
-          copyRecording: function (tabloId, type) {
+          copyRecording: function (recording, type) {
             return $http({
-              url: '/tablo/copy/' + tabloId + '/' + type,
+              url: '/tablo/copy/' + recording.tablo_id + '/' + type + '?tablo_ip=' + recording.tablo_ip,
               method: 'GET'
             });
           },
-          copyStatus: function (tabloId, type) {
+          copyStatus: function (recording, type) {
             return $http({
-              url: '/tablo/copy/' + tabloId + '/' + type + '/status',
+              url: '/tablo/copy/' + recording.tablo_id + '/' + type + '/status?tablo_ip=' + recording.tablo_ip,
               method: 'GET'
             });
           },
           initCopy: function (recording, type) {
             var self = this;
 
-            self.copyRecording(recording.tablo_id, type)
+            self.copyRecording(recording, type)
                 .success(function () {
                   recording.copy_status = 'in_progress';
                   $timeout(function () {
@@ -70,7 +70,7 @@
           pollStatus: function (recording, type) {
             var self = this;
 
-            self.copyStatus(recording.tablo_id, type)
+            self.copyStatus(recording, type)
                 .success(function (res) {
                   if (res.copy_status === 'in_progress') {
                     $timeout(function () {

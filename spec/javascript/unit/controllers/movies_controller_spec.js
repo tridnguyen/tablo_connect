@@ -5,21 +5,19 @@ describe('MoviesCtrl', function () {
       scope,
       ctrl,
       alertsService,
-      tabloService,
-      tabloBaseUrl;
+      tabloService;
 
   beforeEach(module('ac.tabloConnectApp'));
 
-  beforeEach(inject(function ($rootScope, $controller, _$httpBackend_, _alertsService_, _tabloService_, _tabloBaseUrl_) {
+  beforeEach(inject(function ($rootScope, $controller, _$httpBackend_, _alertsService_, _tabloService_) {
     $httpBackend = _$httpBackend_;
     scope = $rootScope.$new();
     alertsService = _alertsService_;
     tabloService = _tabloService_;
-    tabloBaseUrl = _tabloBaseUrl_;
     spyOn(alertsService, 'getAlerts').and.callThrough();
     spyOn(tabloService, 'movieData').and.callThrough();
     spyOn(tabloService, 'initPollStatus').and.callThrough();
-    ctrl = $controller('MoviesCtrl', {$scope: scope, $element: scope.$element, tabloBaseUrl: tabloBaseUrl});
+    ctrl = $controller('MoviesCtrl', {$scope: scope, $element: scope.$element});
   }));
 
   afterEach(function () {
@@ -33,10 +31,6 @@ describe('MoviesCtrl', function () {
 
   it("calls tabloService.movieData", function () {
     expect(tabloService.movieData).toHaveBeenCalled();
-  });
-
-  it('sets the tabloBaseUrl', function () {
-    expect(scope.tabloBaseUrl).toEqual(tabloBaseUrl);
   });
 
   describe('$scope.copyRecording', function () {

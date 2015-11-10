@@ -9,8 +9,8 @@ module TabloConnect
   end
 
   class << self
-    mattr_accessor :tablo_ip
-    self.tablo_ip = '192.168.1.99'
+    mattr_accessor :tablo_ips
+    self.tablo_ips = ['127.0.0.1']
 
     mattr_accessor :tablo_port
     self.tablo_port = '180809'

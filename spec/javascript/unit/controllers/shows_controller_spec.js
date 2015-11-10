@@ -4,18 +4,16 @@ describe('ShowsCtrl', function () {
   var $httpBackend,
       scope,
       ctrl,
-      tabloService,
-      tabloBaseUrl;
+      tabloService;
 
   beforeEach(module('ac.tabloConnectApp'));
 
-  beforeEach(inject(function ($rootScope, $controller, _$httpBackend_, _tabloService_, _tabloBaseUrl_) {
+  beforeEach(inject(function ($rootScope, $controller, _$httpBackend_, _tabloService_) {
     $httpBackend = _$httpBackend_;
     scope = $rootScope.$new();
     tabloService = _tabloService_;
-    tabloBaseUrl = _tabloBaseUrl_;
     spyOn(tabloService, 'showData').and.callThrough();
-    ctrl = $controller('ShowsCtrl', {$scope: scope, $element: scope.$element, tabloBaseUrl: tabloBaseUrl});
+    ctrl = $controller('ShowsCtrl', {$scope: scope, $element: scope.$element});
   }));
 
   afterEach(function () {
@@ -25,9 +23,5 @@ describe('ShowsCtrl', function () {
 
   it ("calls tabloService.showData", function(){
     expect(tabloService.showData).toHaveBeenCalled();
-  });
-
-  it('sets the tabloBaseUrl', function () {
-    expect(scope.tabloBaseUrl).toEqual(tabloBaseUrl);
   });
 });

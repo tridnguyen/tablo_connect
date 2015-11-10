@@ -14,7 +14,7 @@
         </thead>
         <tbody>
         <tr ng-repeat="movie in movies track by $index">
-            <td class="thumb"><img ng-src="{{tabloBaseUrl}}/stream/thumb?id={{movie.image_id}}"></td>
+            <td class="thumb"><img ng-src="{{movie.tablo_ip|tabloBaseUrl}}/stream/thumb?id={{movie.image_id}}"></td>
             <td ng-bind="movie.title"></td>
             <td ng-bind="movie.description"></td>
             <td ng-bind="movie.release_year"></td>

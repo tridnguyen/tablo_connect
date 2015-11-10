@@ -2,8 +2,7 @@
   'use strict';
 
   angular.module('ac.tabloConnectApp')
-      .controller('ShowsCtrl', ['$scope', 'tabloBaseUrl', 'tabloService', function ($scope, tabloBaseUrl, tabloService) {
+      .controller('ShowsCtrl', ['$scope', 'tabloService', function ($scope, tabloService) {
         $scope.shows = tabloService.showData();
-        $scope.tabloBaseUrl = tabloBaseUrl;
       }]);
 })(window.angular);
