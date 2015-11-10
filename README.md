@@ -16,12 +16,14 @@ gem 'tablo_connect'
 
 ```ruby
 TabloConnect.setup do |config|
-  config.tablo_ip = '192.168.1.9'
+  config.tablo_ip = ['192.168.1.9']
   config.tablo_port = '18080'
   config.ffmpeg_path = '/usr/local/bin/ffmpeg'
   config.output_directory = '/path/to/download/directory'
 end
 ```
+
+Note: the config.tablo_ip accepts an array to allow syncing with multiple Tablo devices.
 
 ###Install the migrations
 ```bundle exec rake tablo_connect:install:migrations```
