@@ -4,7 +4,7 @@
     <div ng-switch="!!shows">
         <div ng-switch-when="true">
             <a class="show-cell" ng-repeat="show in shows track by $index" ui-sref="episodes({showName: (show.show|urlencode)})">
-                <img ng-src="{{tabloBaseUrl}}/stream/thumb?id={{show.image_id}}" alt="{{show.show}}">
+                <img ng-src="{{show.tablo_ip|tabloBaseUrl}}/stream/thumb?id={{show.image_id}}" alt="{{show.show}}">
                 <div class="episode-count" ng-bind="show.count"></div>
             </a>
         </div>

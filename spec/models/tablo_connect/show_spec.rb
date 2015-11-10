@@ -2,12 +2,16 @@ require 'spec_helper'
 
 module TabloConnect
   describe Show do
+    describe "validates presence of tablod_ip" do
+      it { is_expected.to validate_presence_of(:tablo_ip) }
+    end
+
     describe "validates presence of tablod_id" do
       it { is_expected.to validate_presence_of(:tablo_id) }
     end
 
-    describe "validates uniqueness of tablod_id" do
-      it { is_expected.to validate_uniqueness_of(:tablo_id) }
+    describe "validates uniqueness of tablo_ip scoped_to tablod_id" do
+      it { is_expected.to validate_uniqueness_of(:tablo_ip).scoped_to(:tablo_id)  }
     end
 
     describe ".shows" do

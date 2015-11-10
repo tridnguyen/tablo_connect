@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151101165020) do
+ActiveRecord::Schema.define(version: 20151109173427) do
 
   create_table "tablo_connect_movies", force: :cascade do |t|
     t.integer  "tablo_id"
@@ -23,9 +23,10 @@ ActiveRecord::Schema.define(version: 20151101165020) do
     t.integer  "copy_status",  default: 0
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.string   "tablo_ip"
   end
 
-  add_index "tablo_connect_movies", ["tablo_id"], name: "index_tablo_connect_movies_on_tablo_id", unique: true
+  add_index "tablo_connect_movies", ["tablo_ip", "tablo_id"], name: "index_tablo_connect_movies_on_tablo_ip_and_tablo_id", unique: true
   add_index "tablo_connect_movies", ["title"], name: "index_tablo_connect_movies_on_title"
 
   create_table "tablo_connect_shows", force: :cascade do |t|
@@ -41,9 +42,10 @@ ActiveRecord::Schema.define(version: 20151101165020) do
     t.integer  "copy_status", default: 0
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.string   "tablo_ip"
   end
 
   add_index "tablo_connect_shows", ["show"], name: "index_tablo_connect_shows_on_show"
-  add_index "tablo_connect_shows", ["tablo_id"], name: "index_tablo_connect_shows_on_tablo_id", unique: true
+  add_index "tablo_connect_shows", ["tablo_ip", "tablo_id"], name: "index_tablo_connect_shows_on_tablo_ip_and_tablo_id", unique: true
 
 end

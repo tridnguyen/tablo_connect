@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('ac.tabloConnectApp')
-      .controller('EpisodesCtrl', ['$scope', '$stateParams', 'tabloBaseUrl', 'tabloService', 'alertsService', function ($scope, $stateParams, tabloBaseUrl, tabloService, alertsService) {
+      .controller('EpisodesCtrl', ['$scope', '$stateParams', 'tabloService', 'alertsService', function ($scope, $stateParams, tabloService, alertsService) {
         $scope.episodes = tabloService.episodeData();
         $scope.showTitle = $stateParams.showName;
         $scope.alerts = alertsService.getAlerts();

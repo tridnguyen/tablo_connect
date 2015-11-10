@@ -18,8 +18,8 @@ describe('tabloService', function () {
 
   describe('initCopy', function () {
     it('sets the recording.copy_status to in_progress', function () {
-      $httpBackend.expectGET('/tablo/copy/1234/movie').respond({copy_status: 'in_progress'});
-      var recording = {tablo_id: 1234};
+      var recording = {tablo_ip: '127.0.0.1', tablo_id: 1234};
+      $httpBackend.expectGET('/tablo/copy/1234/movie?tablo_ip=127.0.0.1').respond({copy_status: 'in_progress'});
       tabloService.initCopy(recording, 'movie');
       $httpBackend.flush();
       expect(recording.copy_status).toEqual('in_progress');

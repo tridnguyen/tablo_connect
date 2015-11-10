@@ -15,32 +15,32 @@ module TabloConnect
 
       context "when the item is not found" do
         it "returns a 404" do
-          get :index, {tablo_id: 99999, type: 'some_type'}
+          get :index, {tablo_ip: show.tablo_ip, tablo_id: 99999, type: 'some_type'}
           expect(response.status).to eq 404
         end
       end
 
       context "when the item is found" do
         it "returns a 200" do
-          get :index, {tablo_id: show.tablo_id, type: 'show'}
+          get :index, {tablo_ip: TabloConnect.tablo_ips[0], tablo_id: show.tablo_id, type: 'show'}
           expect(response.status).to eq 200
         end
 
         it "calls spawn" do
           expect(controller).to receive(:spawn)
-          get :index, {tablo_id: show.tablo_id, type: 'show'}
+          get :index, {tablo_ip: TabloConnect.tablo_ips[0], tablo_id: show.tablo_id, type: 'show'}
         end
 
         it "sets the copy_status to in_progress" do
           item = TabloConnect::Show.find_by_tablo_id show.tablo_id
           expect(item.copy_status).to eq('idle')
-          get :index, {tablo_id: show.tablo_id, type: 'show'}
+          get :index, {tablo_ip: TabloConnect.tablo_ips[0], tablo_id: show.tablo_id, type: 'show'}
           item.reload
           expect(item.copy_status).to eq('in_progress')
         end
 
         it "returns an object with a shows array" do
-          get :index, {tablo_id: show.tablo_id, type: 'show'}
+          get :index, {tablo_ip: TabloConnect.tablo_ips[0], tablo_id: show.tablo_id, type: 'show'}
           json_body = JSON.parse(response.body).with_indifferent_access
           expect(json_body).to match({pid: 1234, destination: '/tmp/output.mp4'})
         end
@@ -50,16 +50,16 @@ module TabloConnect
     describe "GET status" do
       it "calls file_copy_status" do
         expect(controller).to receive(:file_copy_status)
-        get :status, {tablo_id: show.tablo_id, type: 'show'}
+        get :status, {tablo_ip: TabloConnect.tablo_ips[0], tablo_id: show.tablo_id, type: 'show'}
       end
 
       it "returns a 200 status code" do
-        get :status, {tablo_id: show.tablo_id, type: 'show'}
+        get :status, {tablo_ip: TabloConnect.tablo_ips[0], tablo_id: show.tablo_id, type: 'show'}
         expect(response.status).to eq 200
       end
 
       it "returns a JSON object with the copy_status" do
-        get :status, {tablo_id: show.tablo_id, type: 'show'}
+        get :status, {tablo_ip: TabloConnect.tablo_ips[0], tablo_id: show.tablo_id, type: 'show'}
         json_body = JSON.parse(response.body).with_indifferent_access
         expect(json_body[:copy_status]).to eq show.copy_status
       end
@@ -72,7 +72,7 @@ module TabloConnect
 
       context "when the type is not show or movie" do
         it "returns a 404" do
-          allow(controller).to receive(:params).and_return({tablo_id: show.tablo_id, type: 'invalid_type'})
+          allow(controller).to receive(:params).and_return({tablo_ip: TabloConnect.tablo_ips[0], tablo_id: show.tablo_id, type: 'invalid_type'})
           expect(controller).to receive(:head).with(:not_found)
           controller.send(:set_item)
         end
@@ -81,7 +81,7 @@ module TabloConnect
       context "when the type is 'show' or 'movie'" do
         context "when the type is 'movie'" do
           it "uses the Movie model" do
-            allow(controller).to receive(:params).and_return({tablo_id: show.tablo_id, type: 'movie'})
+            allow(controller).to receive(:params).and_return({tablo_ip: show.tablo_ip, tablo_id: show.tablo_id, type: 'movie'})
             expect(TabloConnect::Movie).to receive(:find_by_tablo_id).with(show.tablo_id)
             controller.send(:set_item)
           end
@@ -89,7 +89,7 @@ module TabloConnect
 
         context "when the type is 'show'" do
           it "uses the Show model" do
-            allow(controller).to receive(:params).and_return({tablo_id: show.tablo_id, type: 'show'})
+            allow(controller).to receive(:params).and_return({tablo_ip: show.tablo_ip, tablo_id: show.tablo_id, type: 'show'})
             expect(TabloConnect::Show).to receive(:find_by_tablo_id).with(show.tablo_id)
             controller.send(:set_item)
           end
@@ -97,14 +97,14 @@ module TabloConnect
 
         context "when the item is not found" do
           it "returns a 404" do
-            allow(controller).to receive(:params).and_return({tablo_id: 99999, type: 'show'})
+            allow(controller).to receive(:params).and_return({tablo_ip: show.tablo_ip, tablo_id: 99999, type: 'show'})
             controller.send(:set_item)
           end
         end
 
         context "when the item is found" do
           it "sets the @item instance variable" do
-            allow(controller).to receive(:params).and_return({tablo_id: show.tablo_id, type: 'show'})
+            allow(controller).to receive(:params).and_return({tablo_ip: show.tablo_ip, tablo_id: show.tablo_id, type: 'show'})
             controller.send(:set_item)
             item = controller.instance_variable_get(:@item)
             expect(item).to match(show)
@@ -117,7 +117,7 @@ module TabloConnect
       it "builds the source_path with the tablo_id" do
         controller.instance_variable_set(:@item, show)
         path = controller.send(:source_path)
-        expect(path).to eq "#{TabloConnect.tablo_base_url}/pvr/#{show.tablo_id}/pl/playlist.m3u8"
+        expect(path).to eq "#{TabloConnect.tablo_base_url(show.tablo_ip)}/pvr/#{show.tablo_id}/pl/playlist.m3u8"
       end
     end
 

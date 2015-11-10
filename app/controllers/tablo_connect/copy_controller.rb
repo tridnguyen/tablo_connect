@@ -29,12 +29,12 @@ module TabloConnect
                   return head :not_found if @item.nil?
               end
 
-      @item = model.find_by_tablo_id(params[:tablo_id])
+      @item = model.find_by_tablo_ip(params[:tablo_ip]).find_by_tablo_id(params[:tablo_id])
       head :not_found if @item.nil?
     end
 
     def source_path
-      "#{TabloConnect.tablo_base_url}/pvr/#{@item.tablo_id}/pl/playlist.m3u8"
+      "#{TabloConnect.tablo_base_url(@item.tablo_ip)}/pvr/#{@item.tablo_id}/pl/playlist.m3u8"
     end
 
     def destination_path

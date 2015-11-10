@@ -7,5 +7,6 @@ FactoryGirl.define do
     air_date "2015-11-01"
     image_id 1
     copy_status 0
+    tablo_ip "127.0.0.1"
   end
 end

@@ -30,4 +30,18 @@ describe('filters', function () {
       }));
     });
   });
+
+  describe('tabloBaseUrl', function () {
+    describe('when the value is undefined', function () {
+      it('returns undefined', inject(function (tabloBaseUrlFilter) {
+        expect(tabloBaseUrlFilter(undefined)).toBe(undefined);
+      }));
+    });
+
+    describe('when the value is defined', function () {
+      it('returns the fully qualified domain with port', inject(function (tabloBaseUrlFilter) {
+        expect(tabloBaseUrlFilter('127.0.0.1')).toBe('http://127.0.0.1:18080');
+      }));
+    });
+  });
 });

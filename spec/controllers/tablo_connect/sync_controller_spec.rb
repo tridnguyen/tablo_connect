@@ -22,12 +22,12 @@ module TabloConnect
       end
 
       it "calls delete_removed" do
-        expect(controller).to receive(:delete_removed).with([12345, 6789])
+        expect(controller).to receive(:delete_removed).with(TabloConnect.tablo_ips[0], [12345, 6789])
         get :index
       end
 
       it "calls update_items" do
-        expect(controller).to receive(:update_items).with([12345, 6789])
+        expect(controller).to receive(:update_items).with(TabloConnect.tablo_ips[0], [12345, 6789])
         get :index
       end
     end
@@ -53,7 +53,7 @@ module TabloConnect
 </table>
 </body>
 </html>')
-        expect(controller.send(:parse_items)).to match([114610, 114612])
+        expect(controller.send(:parse_items, TabloConnect.tablo_ips[0])).to match([114610, 114612])
       end
     end
 
@@ -64,13 +64,13 @@ module TabloConnect
       it "deletes ids in TabloConnect::Movie that are not in the array sent" do
         delta = [movie.tablo_id, show.tablo_id] - [1, 2, 3, 4, 5, 6]
         expect(TabloConnect::Movie).to receive(:delete_by_tablo_id).with(delta)
-        controller.send(:delete_removed, [1, 2, 3, 4, 5, 6])
+        controller.send(:delete_removed, TabloConnect.tablo_ips[0], [1, 2, 3, 4, 5, 6])
       end
 
       it "deletes ids in TabloConnect::Show that are not in the array sent" do
         delta = [movie.tablo_id, show.tablo_id] - [1, 2, 3, 4, 5, 6]
         expect(TabloConnect::Show).to receive(:delete_by_tablo_id).with(delta)
-        controller.send(:delete_removed, [1, 2, 3, 4, 5, 6])
+        controller.send(:delete_removed, TabloConnect.tablo_ips[0], [1, 2, 3, 4, 5, 6])
       end
     end
 
@@ -79,7 +79,7 @@ module TabloConnect
         it "calls update_movie" do
           allow(controller).to receive(:recording_details).and_return({recMovie: 1})
           expect(controller).to receive(:update_movie).twice
-          controller.send(:update_items, [1, 2])
+          controller.send(:update_items, TabloConnect.tablo_ips[0], [1, 2])
         end
       end
 
@@ -87,7 +87,7 @@ module TabloConnect
         it "calls update_show" do
           allow(controller).to receive(:recording_details).and_return({recEpisode: 1})
           expect(controller).to receive(:update_show).twice
-          controller.send(:update_items, [1, 2])
+          controller.send(:update_items, TabloConnect.tablo_ips[0], [1, 2])
         end
       end
     end
@@ -97,7 +97,7 @@ module TabloConnect
 
       context "when the item is not found" do
         it "creates the item" do
-          expect { controller.send(:update_movie, 1234, details) }.to change { TabloConnect::Movie.count }.by(1)
+          expect { controller.send(:update_movie, TabloConnect.tablo_ips[0], 1234, details) }.to change { TabloConnect::Movie.count }.by(1)
         end
       end
 
@@ -105,35 +105,35 @@ module TabloConnect
         let!(:movie) { FactoryGirl.create(:tablo_connect_movie) }
 
         it "updates the record instead of creating a new one" do
-          expect { controller.send(:update_movie, movie.tablo_id, details) }.to_not change { TabloConnect::Movie.count }
+          expect { controller.send(:update_movie,TabloConnect.tablo_ips[0],  movie.tablo_id, details) }.to_not change { TabloConnect::Movie.count }
         end
 
         it "updates the title" do
-          controller.send(:update_movie, movie.tablo_id, details)
+          controller.send(:update_movie,TabloConnect.tablo_ips[0],  movie.tablo_id, details)
           movie.reload
           expect(movie.title).to eq details[:recMovie][:jsonForClient][:title]
         end
 
         it "updates the description" do
-          controller.send(:update_movie, movie.tablo_id, details)
+          controller.send(:update_movie, TabloConnect.tablo_ips[0], movie.tablo_id, details)
           movie.reload
           expect(movie.description).to eq details[:recMovie][:jsonForClient][:plot]
         end
 
         it "updates the release year" do
-          controller.send(:update_movie, movie.tablo_id, details)
+          controller.send(:update_movie, TabloConnect.tablo_ips[0], movie.tablo_id, details)
           movie.reload
           expect(movie.release_year).to eq details[:recMovie][:jsonForClient][:releaseYear]
         end
 
         it "updates the air_date" do
-          controller.send(:update_movie, movie.tablo_id, details)
+          controller.send(:update_movie, TabloConnect.tablo_ips[0], movie.tablo_id, details)
           movie.reload
           expect(movie.air_date).to eq details[:recMovieAiring][:jsonForClient][:airDate]
         end
 
         it "updates the image_id" do
-          controller.send(:update_movie, movie.tablo_id, details)
+          controller.send(:update_movie, TabloConnect.tablo_ips[0], movie.tablo_id, details)
           movie.reload
           expect(movie.image_id).to eq details[:recMovie][:imageJson][:images][0][:imageID]
         end
@@ -145,7 +145,7 @@ module TabloConnect
 
       context "when the item is not found" do
         it "creates the item" do
-          expect { controller.send(:update_show, 1234, details) }.to change { TabloConnect::Show.count }.by(1)
+          expect { controller.send(:update_show, TabloConnect.tablo_ips[0], 1234, details) }.to change { TabloConnect::Show.count }.by(1)
         end
       end
 
@@ -153,53 +153,53 @@ module TabloConnect
         let!(:show) { FactoryGirl.create(:tablo_connect_show) }
 
         it "updates the record instead of creating a new one" do
-          expect { controller.send(:update_show, show.tablo_id, details) }.to_not change { TabloConnect::Show.count }
+          expect { controller.send(:update_show, TabloConnect.tablo_ips[0], show.tablo_id, details) }.to_not change { TabloConnect::Show.count }
         end
 
         it "updates the show" do
-          controller.send(:update_show, show.tablo_id, details)
+          controller.send(:update_show, TabloConnect.tablo_ips[0], show.tablo_id, details)
           show.reload
           expect(show.show).to eq details[:recEpisode][:jsonFromTribune][:program][:title]
         end
 
         it "updates the title" do
-          controller.send(:update_show, show.tablo_id, details)
+          controller.send(:update_show, TabloConnect.tablo_ips[0], show.tablo_id, details)
           show.reload
           expect(show.title).to eq details[:recEpisode][:jsonFromTribune][:program][:episodeTitle]
         end
 
         it "updates the description" do
-          controller.send(:update_show, show.tablo_id, details)
+          controller.send(:update_show, TabloConnect.tablo_ips[0], show.tablo_id, details)
           show.reload
           expect(show.description).to eq details[:recEpisode][:jsonFromTribune][:program][:longDescription]
         end
 
         it "updates the episode" do
-          controller.send(:update_show, show.tablo_id, details)
+          controller.send(:update_show, TabloConnect.tablo_ips[0], show.tablo_id, details)
           show.reload
           expect(show.episode).to eq details[:recEpisode][:jsonFromTribune][:program][:episodeNum]
         end
 
         it "updates the season" do
-          controller.send(:update_show, show.tablo_id, details)
+          controller.send(:update_show, TabloConnect.tablo_ips[0], show.tablo_id, details)
           show.reload
           expect(show.season).to eq details[:recEpisode][:jsonFromTribune][:program][:seasonNum]
         end
 
         it "updates the rec_date" do
-          controller.send(:update_show, show.tablo_id, details)
+          controller.send(:update_show, TabloConnect.tablo_ips[0], show.tablo_id, details)
           show.reload
           expect(show.rec_date).to eq details[:recEpisode][:jsonForClient][:airDate]
         end
 
         it "updates the air_date" do
-          controller.send(:update_show, show.tablo_id, details)
+          controller.send(:update_show, TabloConnect.tablo_ips[0], show.tablo_id, details)
           show.reload
           expect(show.air_date.strftime('%F')).to eq details[:recEpisode][:jsonForClient][:originalAirDate]
         end
 
         it "updates the image_id" do
-          controller.send(:update_show, show.tablo_id, details)
+          controller.send(:update_show, TabloConnect.tablo_ips[0], show.tablo_id, details)
           show.reload
           expect(show.image_id).to eq details[:recSeries][:imageJson][:images][0][:imageID]
         end
